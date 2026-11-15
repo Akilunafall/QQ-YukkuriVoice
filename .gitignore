@@ -19,3 +19,7 @@ dist/
 **/bootstrap-error.txt
 **/bridge-error.txt
 /src/Yukkuri.Desktop/Assets/qq-bridge/YukkuriQQInjector.dll
+**/node_modules/
+/src/Yukkuri.CrossPlatform/assets/
+**/playwright-report/
+**/test-results/

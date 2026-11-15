@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>油库里语音 · YukkuriVoice</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><img src="../../assets/app.png" alt=""><span>YUKKURI<small>油库里语音</small></span></div>
+    <nav aria-label="主导航">
+      <button class="nav active" data-page="compose"><i data-lucide="audio-lines"></i>语音工作台</button>
+      <button class="nav" data-page="history"><i data-lucide="history"></i>生成记录</button>
+      <button class="nav" data-page="settings"><i data-lucide="settings-2"></i>QQ 与引擎</button>
+    </nav>
+    <div class="sidebar-bottom"><span class="dot"></span> 本地合成<small id="platform-version"></small></div>
+  </aside>
+  <div class="workspace">
+    <header><div><span class="eyebrow">YUKKURI VOICE</span><h1 id="page-title">语音工作台</h1></div>
+      <div class="header-actions"><span id="qq-label" class="connection">QQ 未连接</span>
+        <button id="floating" class="icon" title="悬浮窗" aria-label="悬浮窗"><i data-lucide="square-arrow-out-up-right"></i></button>
+      </div>
+    </header>
+    <main>
+      <section id="compose" class="page">
+        <div class="voice-row"><div><h2>选择音色</h2><span class="muted" id="engine-label">AquesTalk 1</span></div>
+          <label class="voice-select"><span class="sr-only">选择音色</span><select id="voice"></select></label>
+        </div>
+        <div class="editor-layout">
+          <div class="editor-column"><div class="section-label"><h2>要说的话</h2>
+            <label class="check"><input id="auto-generate" type="checkbox" checked>自动生成</label></div>
+            <div class="editor-frame"><textarea id="text" maxlength="240" aria-label="要说的话" spellcheck="false"></textarea>
+              <div class="editor-meta"><button id="clear" class="icon tiny" title="清空文字" aria-label="清空文字"><i data-lucide="trash-2"></i></button><span id="count">0 / 240</span></div>
+            </div>
+            <div class="generate-row"><button id="generate" class="primary"><i data-lucide="zap"></i>生成语音</button></div>
+          </div>
+          <div class="speed-column"><h2>语速</h2><div class="speed-label"><label for="speed">语速</label><output id="speed-value">1.00×</output></div>
+            <input id="speed" type="range" min="0.65" max="1.60" step="0.01" value="1" aria-label="语速">
+          </div>
+        </div>
+        <div class="preview-section"><div class="section-label"><h2>语音预览</h2><span id="duration" class="muted">0.0 秒</span></div>
+          <div class="preview"><button id="play" class="icon" title="试听" aria-label="试听" disabled><i data-lucide="play"></i></button>
+            <div class="wave-column"><span id="clip-name" class="muted">等待生成</span><canvas id="waveform" width="900" height="42" aria-label="语音波形"></canvas></div>
+            <button id="stop" class="icon" title="停止" aria-label="停止"><i data-lucide="square"></i></button>
+          </div>
+          <div class="send-row"><button id="send" class="teal"><i data-lucide="mic"></i>一键发送 QQ 语音</button>
+            <button id="export"><i data-lucide="download"></i>导出 WAV</button><span class="muted" id="recipient"></span></div>
+        </div>
+      </section>
+      <section id="history" class="page" hidden><div class="section-label"><h2>生成记录</h2><label class="check"><input id="keep-history" type="checkbox" checked>保存新生成的语音</label></div>
+        <div id="history-list"></div><p id="history-empty" class="empty">暂无生成记录</p></section>
+      <section id="settings" class="page" hidden>
+        <div class="settings-section"><h2>QQ 本机连接 <span class="tag">实验性 · 未实机验证</span></h2>
+          <div class="settings-actions"><button id="launch-qq"><i data-lucide="message-circle"></i>启动 QQ</button>
+            <button id="refresh-qq"><i data-lucide="refresh-cw"></i>刷新会话</button></div><p id="settings-peer" class="muted">QQ 未连接</p></div>
+        <div class="settings-section"><h2>AquesTalk 引擎</h2><div class="settings-actions">
+          <button id="import-engine"><i data-lucide="folder-open"></i>导入授权引擎</button></div>
+          <p id="voice-summary" class="muted">8 个基础音色</p></div>
+        <div class="settings-section"><h2>本机数据</h2><button id="open-data"><i data-lucide="folder"></i>打开数据文件夹</button></div>
+      </section>
+    </main>
+    <footer><span class="dot"></span><span id="status" role="status">输入就绪</span><span id="detail"></span></footer>
+  </div>
+  <div id="mini" hidden>
+    <div class="mini-title"><strong>油库里语音</strong><span id="mini-duration">0.0 秒</span></div>
+    <textarea id="mini-text" maxlength="240" aria-label="悬浮窗语音文字" spellcheck="false"></textarea>
+    <span id="mini-peer" class="muted"></span>
+    <div class="mini-actions"><button id="mini-play" class="icon" title="试听" aria-label="试听"><i data-lucide="play"></i></button>
+      <button id="mini-stop" class="icon" title="停止" aria-label="停止"><i data-lucide="square"></i></button>
+      <button id="mini-send" class="teal">一键发送 QQ 语音</button>
+      <button id="restore" class="icon" title="打开工作台" aria-label="打开工作台"><i data-lucide="square-arrow-out-up-right"></i></button>
+    </div><span id="mini-status" role="status"></span>
+  </div>
+  <script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
