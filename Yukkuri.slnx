@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/Yukkuri.Desktop/Yukkuri.Desktop.csproj" />
+  <Project Path="src/Yukkuri.AquesBridge/Yukkuri.AquesBridge.csproj" />
+  <Project Path="tests/Yukkuri.Smoke/Yukkuri.Smoke.csproj" />
+  <Project Path="tests/QQ.DraftFixture/QQ.DraftFixture.csproj" />
+</Solution>

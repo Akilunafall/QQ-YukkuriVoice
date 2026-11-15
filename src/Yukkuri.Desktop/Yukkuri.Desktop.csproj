@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>YukkuriVoice</AssemblyName>
+    <RootNamespace>Yukkuri</RootNamespace>
+    <Version>1.2.1</Version>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Pinyin4net-core" Version="1.1.0" />
+    <Resource Include="Assets\app.ico" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <Content Include="Assets\pinyin-kana.tsv" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
+    <Content Include="Assets\voices\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
+    <Content Include="Assets\qq-bridge\**\*.cjs;Assets\qq-bridge\**\*.dll;Assets\qq-bridge\**\*.txt;Assets\qq-bridge\**\*.wasm" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" ExcludeFromSingleFile="true" />
+    <Content Update="Assets\voices\**\AquesTalk.dll" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+</Project>

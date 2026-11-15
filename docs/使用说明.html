@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>油库里语音 · 使用说明</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f7f8f9;color:#252a2f;font:15px/1.85 "Microsoft YaHei UI",sans-serif}
+    main{max-width:880px;margin:auto;padding:48px 28px 70px}header{border-bottom:1px solid #dce2e5;padding-bottom:24px;margin-bottom:28px}
+    .brand{font-size:12px;color:#b73548;font-weight:700}h1{font-size:30px;margin:8px 0}h2{font-size:20px;margin-top:32px}p{margin:10px 0}
+    a{color:#197e76}code{background:#e9edef;padding:2px 5px;border-radius:3px;font-family:Consolas,monospace}
+    table{width:100%;border-collapse:collapse;background:white}td,th{text-align:left;padding:12px;border:1px solid #e0e5e7}
+    th{background:#eff2f3}.note{border-left:3px solid #b73548;padding:10px 16px;background:#fff0f3;margin:18px 0}
+    li{margin:8px 0}.small{font-size:12px;color:#747b83}footer{border-top:1px solid #dce2e5;margin-top:36px;padding-top:18px}
+  </style>
+</head>
+<body><main>
+  <header><div class="brand">YUKKURI VOICE / WINDOWS</div><h1>油库里语音</h1><p>选择声线，生成语音，在 QQ 里慢慢说。</p></header>
+  <h2>开始使用</h2>
+  <p>退出旧版本后，双击新版文件夹 <code>YukkuriVoice-1.2.1</code> 中的 <code>YukkuriVoice.exe</code>。语音合成在本机完成，打开已登录的 QQ 后自动建立本地连接，不需要注册网站或填写令牌。</p>
+  <p>在工作台输入文字，停止输入约 1.2 秒后自动生成。从音色下拉框选择 AquesTalk 音色，只调整语速。点击试听按钮确认声音，或导出 WAV 保存。</p>
+  <div class="note"><b>原声输出：</b>已移除旧版的量化、72 Hz 调制和移调。导出 WAV 与引擎输出逐字节一致，旧设置也不会恢复这些效果。网站所选音色、引擎版本及文字读法仍会影响最终听感。</div>
+  <h2>音色</h2>
+  <table><thead><tr><th>分组</th><th>音色</th><th>本机资源</th></tr></thead><tbody>
+    <tr><td>AquesTalk 1</td><td>F1、F2、M1、M2、DVD、IMD1、JGR、R1</td><td>旧许可声库随程序提供</td></tr>
+    <tr><td>AquesTalk 1</td><td>F3</td><td>本机官方评估 SDK</td></tr>
+    <tr><td>AquesTalk 2</td><td>RM、F1C、F3A、HUSKEY、M4B、MF1、RB2、RB3、ROBO、YUKKURI、F4、M5、MF2、RM3</td><td>本机官方评估 SDK，14 个 phont</td></tr>
+    <tr><td>AquesTalk 10</td><td>F1、F2、F3、M1、M2、R1、R2</td><td>本机官方评估 SDK，7 个预设</td></tr>
+  </tbody></table>
+  <p>当前电脑共 30 个选项。SDK 完整保存在 <code>%LOCALAPPDATA%\YukkuriVoice\Engines</code>，没有打入可再分发 ZIP；移动程序到另一台电脑时，需要在该电脑安装相应 SDK。</p>
+  <p><b>评估版限制：</b>AQUEST 官方下载的 AT1/2/10 评估 SDK 会将「ナ行、マ行」发为「ヌ」。程序不会解除此限制。AT10 支持通过环境变量 <code>AQTK10_DEV_KEY</code> 和 <code>AQTK10_USR_KEY</code> 传入用户合法持有的开发/使用密钥；AT2 的正式 DLL 需要从 AQUEST 获取。</p>
+  <h2>在 QQ 输入框中自动生成</h2>
+  <ol>
+    <li>在软件“QQ 与引擎”中开启“读取 QQ 当前聊天输入框”，并在工作台开启“自动生成”。</li>
+    <li>让 QQ 位于前台，在<b>聊天输入框</b>内输入文字。软件只读取当前可写草稿，不读取消息列表。</li>
+    <li>停止输入后等待生成。需要随时查看结果时，可打开右上角的悬浮窗。</li>
+    <li>部分 QQ 版本输入框未开放可访问接口时，把光标放在聊天输入框，按 <code>Ctrl + Alt + Y</code> 手动取词。</li>
+  </ol>
+  <p class="small">手动取词的兼容回退会全选并复制当前编辑区、尽量恢复剪贴板，光标移至当前行末。不要在消息列表、搜索栏中触发。自动联动不使用剪贴板。每条最多 240 字符。</p>
+  <h2>发送为 QQ 语音消息</h2>
+  <p>1.2.1 使用随程序提供的本地 x64 内存连接器，并修复了此前 QQ 原生参数不完整导致发送失败的问题。音频副本在 QQ 进程内编码为 SILK，并以原生 PTT 语音元素提交，不使用麦克风或虚拟声卡；原始合成 WAV 不变。</p>
+  <ol>
+    <li>启动并登录 QQ，然后打开本软件。软件会自动连接 QQ；如 QQ 稍后启动，每 5 秒重新检测一次。“QQ 与引擎”中也可点击“重新连接 QQ”。</li>
+    <li>在 QQ 打开目标聊天，检查工作台或悬浮窗显示的当前好友或群。发送目标来自 QQ 当前会话的真实标识，不按最近联系人或窗口标题猜测。</li>
+    <li>在 QQ、工作台或悬浮窗输入文字，生成并试听，点击“一键发送 QQ 语音”或使用发送快捷键。发送前会再次核对目标；切换到其他聊天后，本次发送取消。</li>
+    <li>多个独立聊天窗时，先点一下目标 QQ 聊天窗口。软件使用最近获得焦点的聊天窗；如果无法唯一识别，不会发送。多个独立 QQ 登录进程暂不支持。</li>
+    <li>本地连接使用命名管道，自动校验随机密钥与 QQ 进程。没有 HTTP 端口、外部授权网站、手动令牌或独立后台机器人。没有修改 QQ 安装文件；QQ 关闭后本次注入结束。</li>
+    <li>程序收到与本条语音、目标和消息编号匹配的 QQ 成功状态后才报告成功；超时或连接中断显示“结果未知”，不会自动重发。先检查 QQ 记录，避免重复发送。</li>
+  </ol>
+  <p>每条音频最多 58 秒。请让 QQ 和本软件都以普通用户权限运行，并保留新版文件夹中的 <code>Assets\qq-bridge</code>。不需要更改浏览器信任或关闭系统安全软件。</p>
+  <div class="note"><b>实际验证：</b>2026-11-15 在本机 QQ 9.9.29-47354、用户明确授权的群聊中实际发送三条语音，覆盖本地调用、主窗口按钮和悬浮窗修改文字后的发送。均收到匹配的 QQ 成功状态并出现原生语音气泡，首条已进入正常播放状态。悬浮窗使用相同控件和发送处理器的开发测试入口，窗口边框为工具可识别的普通边框。其他成员设备上的播放效果尚未核验。非官方集成的 QQ 更新兼容性及长期稳定性仍需后续验证。</div>
+  <h2>在悬浮窗编辑文字</h2>
+  <p>悬浮窗中间现在是可编辑的多行文本框，支持换行和最多 240 字符，与工作台双向同步。修改后旧音频失效，不会继续发送旧文字。开启自动生成时停止输入后重新合成；关闭自动生成时，可按 <code>Ctrl + Enter</code> 立即合成，或直接点击试听/发送以生成最新文本。发送进行中暂时锁定编辑，避免文字与语音不一致。</p>
+  <h2>导入 AquesTalk 声库</h2>
+  <ol>
+    <li>从 <a href="https://www.a-quest.com/download.html">AQUEST 官方</a> 或你有权使用的本地 SDK 获取 AquesTalk。请先阅读对应的 <a href="https://www.a-quest.com/licence_free.html">授权条件</a>。</li>
+    <li>在“QQ 与引擎”点“导入授权声库”，选择对应的 DLL，可多选。支持 AT1/2/10 与 x64/x86；AT2 必须保留完整 SDK 的 <code>phont</code> 目录，AT10 会自动建立七种预设。</li>
+    <li>从工作台的油库里音色列表选择已导入的音色。</li>
+    <li>输入中文、日语假名或标点，例如 <code>慢慢来，今天也要度过悠闲的一天。</code>。</li>
+  </ol>
+  <p>中文和假名可直接输入；日语汉字目前会按中文拼音转写。需要正确日语读法时，请输入假名。</p>
+  <h2>快捷键与数据</h2>
+  <table><tbody>
+    <tr><td><code>Ctrl + Enter</code></td><td>在工作台或悬浮窗立即生成</td></tr>
+    <tr><td><code>Ctrl + Alt + Y</code></td><td>QQ 前台时手动读取输入草稿</td></tr>
+    <tr><td><code>Ctrl + Alt + P</code></td><td>发送至当前 QQ 聊天会话</td></tr>
+    <tr><td>数据文件夹</td><td><code>%LOCALAPPDATA%\YukkuriVoice</code></td></tr>
+  </tbody></table>
+  <p class="small">默认热键占用时，会改用 Ctrl + Alt + F9 / F10，或再加入 Shift。请以“QQ 与引擎”页面显示的实际热键为准。</p>
+  <p>设置与最多 60 条生成记录保存在本机。关闭“保存新生成的语音记录”后，新音频仅用于当前会话，替换或退出时删除；已有记录仍保留。记录页可试听和删除音频。</p>
+  <h2>常见问题</h2>
+  <p><b>QQ 输入没有联动：</b>确认焦点在聊天编辑区、QQ 为前台、输入区位于窗口下半部。部分布局需手动取词。请让 QQ 与本软件保持相同的普通用户权限。</p>
+  <p><b>QQ 没有发送：</b>先退出旧版，确认正在运行 1.2.1，打开 QQ 目标聊天，检查当前会话名称并点击“重新连接 QQ”。不再需要任何网站授权或令牌。如果提示会话变化，确认目标后重试；如果提示结果未知，先在 QQ 检查结果，避免重复发送。当前适配基于 QQ 9.9.29-47354，新版本可能需要重新适配。</p>
+  <p><b>没有声音或合成失败：</b>确认发行目录中的 <code>Assets\voices</code>、<code>pinyin-kana.tsv</code> 和 <code>bridge-x86</code> 完整。AT2 必须有对应 phont 文件；AT10 使用独立参数结构，程序会按接口区分加载。</p>
+  <p><b>评估音色与网站不同：</b>评估 SDK 有发音限制，使用正式 DLL/合法密钥后才能解除。不同声种也会有固有差异；程序不再通过机械效果模仿另一声种。</p>
+  <footer class="small">本软件为独立同人工具，不是腾讯 QQ、上海爱丽丝幻乐团或 AQUEST 的官方产品。油库里背景资料参考 <a href="https://thwiki.cc/油库里">THBWiki</a>；引擎说明见 <a href="https://www.a-quest.com/products/aquestalk_1.html">AQUEST</a>。资料核对日期：2026-11-15。</footer>
+</main></body></html>
