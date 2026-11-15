@@ -27,6 +27,23 @@ function command(executable, args) {
     if (result.error) throw result.error;
     if (result.status !== 0) throw new Error(executable + ' failed with exit code ' + result.status);
 }
+async function createDiskImage(folder, target) {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        const result = spawnSync('/usr/bin/hdiutil', ['create', '-volname', 'YukkuriVoice',
+            '-fs', 'HFS+', '-srcfolder', folder, '-ov', '-format', 'UDZO', target],
+        { encoding: 'utf8', timeout: 180000 });
+        if (result.stdout) process.stdout.write(result.stdout);
+        if (result.stderr) process.stderr.write(result.stderr);
+        if (result.status === 0) {
+            command('/usr/bin/hdiutil', ['verify', target]);
+            return;
+        }
+        if (attempt === 3 || !/Resource busy/i.test(result.stderr || ''))
+            throw result.error || new Error('macOS disk image creation failed.');
+        console.log('Disk image service was busy; retrying with the same signed application.');
+        await new Promise(resolve => setTimeout(resolve, 5000));
+    }
+}
 function hash(bytes, algorithm = 'sha256', format = 'hex') {
     return crypto.createHash(algorithm).update(bytes).digest(format);
 }
@@ -233,8 +250,7 @@ async function main() {
             fs.symlinkSync('/Applications', path.join(diskFolder, 'Applications'));
             fs.copyFileSync(path.join(repository, 'docs/跨平台版本.md'), path.join(diskFolder, '使用说明.md'));
             const diskImage = path.join(output, name + '.dmg');
-            command('/usr/bin/hdiutil', ['create', '-volname', 'YukkuriVoice', '-srcfolder', diskFolder,
-                '-ov', '-format', 'UDZO', diskImage]);
+            await createDiskImage(diskFolder, diskImage);
             artifacts.push(diskImage);
         } else {
             await pipeline(runtime.generateNodeStream({ type: 'nodebuffer', platform: 'UNIX',

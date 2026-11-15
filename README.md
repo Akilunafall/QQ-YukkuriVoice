@@ -2,6 +2,14 @@
 
 Windows 10 / 11 x64 原生桌面工具。选择 AquesTalk 音色、调整语速，输入文字后离线生成原声 WAV。QQ 发送使用内存注入服务提交语音消息。
 
+## macOS / Linux
+
+新增独立跨平台版 1.3.0，提供 Intel / Apple Silicon Mac 的 `.dmg`、`.app` ZIP，以及 Linux x64 / ARM64 的 `.deb` 和便携 `.tar.gz`。基础音色八种，离线合成、语速、试听、WAV 导出、记录和可编辑悬浮窗均包含。基础音色的输出已与 Windows 原生版逐字节核对。
+
+QQ 跨平台连接为实验性，本次未进行 QQ 实机连接或发送测试。macOS 包仅有本地 ad-hoc 签名，未做 Apple Developer ID 签名或公证。详见 [跨平台使用与验证说明](docs/跨平台版本.md)。
+
+源码在 `src/Yukkuri.CrossPlatform`，GitHub Actions 的 `Build macOS and Linux packages` 可在四种目标系统构建安装包并检查启动。本机输出目录为 `dist/YukkuriVoice-1.3.0-CrossPlatform`。这组新增包不会替代 Windows 1.2.1 原生版。
+
 ## 启动
 
 普通用户请在本仓库 [Releases](https://github.com/Akilunafall/QQ-YukkuriVoice/releases) 下载已发布的 `YukkuriVoice-1.2.1-Windows-x64.zip`，完整解压后运行文件夹内的 `YukkuriVoice.exe`。如果 Releases 中尚无附件，需等待便携包发布或按下方说明从源码构建。GitHub 自动生成的 Source code ZIP 是源码，不包含已编译程序。
